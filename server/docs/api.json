@@ -1,0 +1,1266 @@
+{
+	"info": {
+		"_postman_id": "28d456b2-8a27-4ec5-9ca3-191ae4dbeafc",
+		"name": "Cinema-System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Guest",
+			"item": [
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"manaer\",\r\n    \"role\": \"manager\",\r\n    \"password\": \"Whaaaat1?\",\r\n    \"email\": \"wah@naama.com\",\r\n    \"firstName\": \"ahmed\",\r\n    \"lastName\": \"Hussein\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sign up - Duplicate emails",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"ahmed\",\r\n    \"password\": \"Whaaaat1?\",\r\n    \"email\": \"wah@na.com\",\r\n    \"firstName\": \"ahmed\",\r\n    \"lastName\": \"Hussein\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57-cQCkje2icmPUcRiOpNejUgNmj3Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 04:41:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"fail\",\n    \"message\": \"Duplicate field value \\\"ahmed\\\". Please use another value\"\n}"
+						},
+						{
+							"name": "Sign up - Validation error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"ahmed\",\r\n    \"password\": \"Whaaaat1\",\r\n    \"email\": \"wah@na.com\",\r\n    \"firstName\": \"ahmed\",\r\n    \"lastName\": \"Hussein\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "161"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a1-mkETbpSnftLTMzVRxLEYrJklz9U\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 04:40:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"fail\",\n    \"message\": \"Invalid input data. Password must contain at least one uppercase letter, one lowercase letter, one number and one special character\"\n}"
+						},
+						{
+							"name": "Sign up - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"ahmed\",\r\n    \"password\": \"Whaaaat1?\",\r\n    \"email\": \"wah@na.com\",\r\n    \"firstName\": \"ahmed\",\r\n    \"lastName\": \"Hussein\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14-Y53wuE/mmbSikKcT/WualL1N65U\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 04:40:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"jwt\", jsonData.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"Whaaaat1?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login - Invalid ",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"ahmed\",\r\n    \"password\": \"Whaaat1?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-5wbL4J9LuCOgBQ8fM40Um5jJfMY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 04:44:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"fail\",\n    \"message\": \"Invalid credentials\"\n}"
+						},
+						{
+							"name": "Login - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"ahmed\",\r\n    \"password\": \"Whaaaat1?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "370"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"172-pG2MMv6wgDnOFNEWFCn+rV/icw4\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 04:43:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzk0M2MxMTI5ZDkwMTQ4MjQ4ZDgxNCIsImlhdCI6MTY0MDU4MDIzNywiZXhwIjoxNjQwNzUzMDM3fQ.qMgTeMf66WcUXhYG1ZOPa5pILVdwDb86j4kvth1ak6o\",\n    \"user\": {\n        \"_id\": \"61c943c1129d90148248d814\",\n        \"username\": \"ahmed\",\n        \"role\": \"customer\",\n        \"hasRequestedRoleUpgrade\": false,\n        \"firstName\": \"ahmed\",\n        \"lastName\": \"Hussein\",\n        \"email\": \"wah@na.com\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/movies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"movies"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all movies",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/movies",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"movies"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "308"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"134-pE3Lmq+THh5CVH0MvQlGvr4DR6o\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:43:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"results\": 1,\n    \"movies\": [\n        {\n            \"_id\": \"61c94f51ef85114065486adb\",\n            \"title\": \"haha1\",\n            \"description\": \"ahaha\",\n            \"roomId\": 1,\n            \"date\": \"2021-12-27T05:29:33.890Z\",\n            \"startTime\": \"2021-12-27T05:29:33.890Z\",\n            \"endTime\": \"2021-12-27T05:29:33.890Z\",\n            \"__v\": 0,\n            \"seats\": [\n                {\n                    \"row\": 5,\n                    \"seat\": 4\n                },\n                {\n                    \"row\": 30,\n                    \"seat\": 50\n                }\n            ],\n            \"id\": \"61c94f51ef85114065486adb\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get one movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/movies/61c94f51ef85114065486adb",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"movies",
+								"61c94f51ef85114065486adb"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get one movie",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/movies/61c94f51ef85114065486adb",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"movies",
+										"61c94f51ef85114065486adb"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "293"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"125-tC4QoMrZmtbNrLuBmxa7Lcz/Js4\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:44:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"movie\": {\n        \"_id\": \"61c94f51ef85114065486adb\",\n        \"title\": \"haha1\",\n        \"description\": \"ahaha\",\n        \"roomId\": 1,\n        \"date\": \"2021-12-27T05:29:33.890Z\",\n        \"startTime\": \"2021-12-27T05:29:33.890Z\",\n        \"endTime\": \"2021-12-27T05:29:33.890Z\",\n        \"__v\": 0,\n        \"seats\": [\n            {\n                \"row\": 5,\n                \"seat\": 4\n            },\n            {\n                \"row\": 30,\n                \"seat\": 50\n            }\n        ],\n        \"id\": \"61c94f51ef85114065486adb\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Book a movie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rowNumber\": 5,\r\n    \"seatNumber\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/customer/booking/61c94f51ef85114065486adb",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"customer",
+								"booking",
+								"61c94f51ef85114065486adb"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Book a movie - Duplicate",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"rowNumber\": 5,\r\n    \"seatNumber\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/customer/booking/61c94f51ef85114065486adb",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"customer",
+										"booking",
+										"61c94f51ef85114065486adb"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "104"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"68-6oqr3T7YP1845dSniRvpYskHTyw\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:37:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"fail\",\n    \"message\": \"Duplicate field value '61c94f51ef85114065486adb'. Please use another value\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel a reservation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rowNumber\": 5,\r\n    \"seatNumber\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/customer/booking/61c94f51ef85114065486adb",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"customer",
+								"booking",
+								"61c94f51ef85114065486adb"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cancel a reservation - Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"rowNumber\": 5,\r\n    \"seatNumber\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/customer/booking/61c94f51ef85114065486adb",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"customer",
+										"booking",
+										"61c94f51ef85114065486adb"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:38:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get all unapproved users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/admin/users/unapproved",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"unapproved"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all unapproved users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/admin/users/unapproved",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"unapproved"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "200"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c8-iJAKIq8WUnrywHg2eU18xZ2FOBg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:47:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"results\": 1,\n    \"users\": [\n        {\n            \"_id\": \"61c953596a637560b1911feb\",\n            \"username\": \"manaer\",\n            \"role\": \"customer\",\n            \"hasRequestedRoleUpgrade\": true,\n            \"firstName\": \"ahmed\",\n            \"lastName\": \"Hussein\",\n            \"email\": \"wah@naama.com\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Approve user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/admin/users/61c953596a637560b1911feb",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"61c953596a637560b1911feb"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Approve user - Success",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/admin/users/61c953596a637560b1911feb",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"61c953596a637560b1911feb"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:48:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "Approve user - Not found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/admin/users/61c946b31c80d408ea4c6d0c",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"61c946b31c80d408ea4c6d0c"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-aYer2DDcq1QaWEn0mU3BYuBswEE\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:48:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"fail\",\n    \"message\": \"User not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/admin/users/61c946b31c80d408ea4c6d0c",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"61c946b31c80d408ea4c6d0c"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete user - Not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/admin/users/61c946b31c80d408ea4c6d0c",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"61c946b31c80d408ea4c6d0c"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-aYer2DDcq1QaWEn0mU3BYuBswEE\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:49:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"fail\",\n    \"message\": \"User not found\"\n}"
+						},
+						{
+							"name": "Delete user - Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/admin/users/61c946b31c80d408ea4c6d0c",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"61c946b31c80d408ea4c6d0c"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:01:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Manager",
+			"item": [
+				{
+					"name": "Create a movie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"test\",\r\n    \"description\": \"ahaha\",\r\n    \"roomId\": 1,\r\n    \"date\": \"2021-12-27T05:29:33.890Z\",\r\n    \"startTime\": \"2021-12-27T05:29:33.890Z\",\r\n    \"endTime\": \"2021-12-27T05:29:33.890Z\" \r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/manager/movies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"manager",
+								"movies"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create a movie",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"test\",\r\n    \"description\": \"ahaha\",\r\n    \"roomId\": 1,\r\n    \"date\": \"2021-12-27T05:29:33.890Z\",\r\n    \"startTime\": \"2021-12-27T05:29:33.890Z\",\r\n    \"endTime\": \"2021-12-27T05:29:33.890Z\" \r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/manager/movies",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"manager",
+										"movies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "210"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d2-GGBsQlfeaXU5TCvDZ4XBxFydgD0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:29:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"movie\": {\n        \"title\": \"test\",\n        \"description\": \"ahaha\",\n        \"roomId\": 1,\n        \"date\": \"2021-12-27T05:29:33.890Z\",\n        \"startTime\": \"2021-12-27T05:29:33.890Z\",\n        \"endTime\": \"2021-12-27T05:29:33.890Z\",\n        \"_id\": \"61c94f51ef85114065486adb\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update a movie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"haha1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/manager/movies/61c94f51ef85114065486adb",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"manager",
+								"movies",
+								"61c94f51ef85114065486adb"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update a movie",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"haha1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/manager/movies/61c94f51ef85114065486adb",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"manager",
+										"movies",
+										"61c94f51ef85114065486adb"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "211"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d3-k1Z7wI1RNlPFNhjX/UieEXUA8Gk\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 05:31:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"movie\": {\n        \"_id\": \"61c94f51ef85114065486adb\",\n        \"title\": \"haha1\",\n        \"description\": \"ahaha\",\n        \"roomId\": 1,\n        \"date\": \"2021-12-27T05:29:33.890Z\",\n        \"startTime\": \"2021-12-27T05:29:33.890Z\",\n        \"endTime\": \"2021-12-27T05:29:33.890Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
