@@ -31,5 +31,11 @@ ticketSchema.index(
 
 ticketSchema.plugin(idvalidator);
 
+ticketSchema.virtual('movie', {
+  ref: 'Movie',
+  localField: 'movieId',
+  foreignField: '_id',
+});
+
 Ticket = mongoose.model('Ticket', ticketSchema);
 module.exports = Ticket;

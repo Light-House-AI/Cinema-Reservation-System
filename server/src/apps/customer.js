@@ -1,4 +1,5 @@
 const express = require('express');
+
 const restrictTo = require('../middlewares/restrictTo');
 const protect = require('../middlewares/protect');
 const catchAsync = require('../utils/catchAsync');
@@ -44,14 +45,20 @@ async function cancelBooking(req, res) {
   const { movieId } = req.params;
   const { rowNumber, seatNumber } = req.body;
 
-  const ticket = await Ticket.findOneAndDelete({
+  const ticket = await Ticket.findOne({
     userId: req.user._id,
     rowNumber,
     seatNumber,
     movieId,
-  });
+  }).populate('movie');
 
   if (!ticket) throw new BadRequestError('Ticket not available');
+
+  // check if movie will start in 3 hours
+  if (ticket.movie[0].startTime - Date.now() < 3 * 60 * 60 * 1000)
+    throw new BadRequestError('Cannot cancel booking');
+
+  await ticket.remove();
 
   res.status(204).json({});
 }
