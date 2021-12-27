@@ -21,7 +21,7 @@ const movieSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: 'default.jpg',
+      default: 'images/default.jpg',
     },
     startTime: {
       type: Date,

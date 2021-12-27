@@ -128,8 +128,8 @@ async function updateMovieImage(req, res) {
     .toFormat('jpeg')
     .toFile(`${__dirname}/../../public/images/${movie._id}.jpg`);
 
-  if (movie.image === 'default.jpg') {
-    movie.image = `${movie._id}.jpg`;
+  if (movie.image === 'images/default.jpg') {
+    movie.image = `images/${movie._id}.jpg`;
     await movie.save();
   }
 
