@@ -6,6 +6,7 @@ const BadRequestError = require('../errors/badRequestError');
 
 const User = require('../models/user');
 const Movie = require('../models/movie');
+const Rooms = require('../models/room');
 
 const router = express.Router();
 
@@ -41,13 +42,15 @@ async function login(req, res) {
 }
 
 async function getAllMovies(req, res) {
-  const movies = await Movie.find({}).populate('seats');
+  let movies = await Movie.find({}).populate('seats');
 
-  for (let movie of movies) {
-    movie.seats = movie.seats.map((seat) => {
-      return { row: seat.rowNumber, seat: seat.seatNumber };
-    });
-  }
+  movies = movies.map((movie) => {
+    movie = movie.toJSON();
+    movie.room = Rooms[movie.roomId];
+    movie.numReservedSeats = movie.seats.length;
+    movie.seats = undefined;
+    return movie;
+  });
 
   res.status(200).json({ results: movies.length, movies });
 }
@@ -60,7 +63,9 @@ async function getMovie(req, res) {
     return { row: seat.rowNumber, seat: seat.seatNumber };
   });
 
-  res.status(200).json({ movie });
+  const room = Rooms[movie.roomId];
+
+  res.status(200).json({ ...movie.toJSON(), room });
 }
 
 router.post('/signup', catchAsync(signUp));

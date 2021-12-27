@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"manaer\",\r\n    \"role\": \"manager\",\r\n    \"password\": \"Whaaaat1?\",\r\n    \"email\": \"wah@naama.com\",\r\n    \"firstName\": \"ahmed\",\r\n    \"lastName\": \"Hussein\"\r\n}",
+							"raw": "{\r\n    \"username\": \"manaer\",\r\n    \"role\": \"manager\",\r\n    \"password\": \"Whaaaat?\",\r\n    \"email\": \"wah@naama.com\",\r\n    \"firstName\": \"ahmed\",\r\n    \"lastName\": \"Hussein\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -230,7 +230,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"manager\",\r\n    \"password\": \"Whaaaat1?\"\r\n}",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"Whaaaat1?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -417,15 +417,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "308"
+									"value": "1477"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"134-pE3Lmq+THh5CVH0MvQlGvr4DR6o\""
+									"value": "W/\"5c5-D7lyGTrkf7o86QsPFoDG7/G5HfI\""
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 27 Dec 2021 05:43:38 GMT"
+									"value": "Mon, 27 Dec 2021 23:09:28 GMT"
 								},
 								{
 									"key": "Connection",
@@ -433,7 +433,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"results\": 1,\n    \"movies\": [\n        {\n            \"_id\": \"61c94f51ef85114065486adb\",\n            \"title\": \"haha1\",\n            \"description\": \"ahaha\",\n            \"roomId\": 1,\n            \"date\": \"2021-12-27T05:29:33.890Z\",\n            \"startTime\": \"2021-12-27T05:29:33.890Z\",\n            \"endTime\": \"2021-12-27T05:29:33.890Z\",\n            \"__v\": 0,\n            \"seats\": [\n                {\n                    \"row\": 5,\n                    \"seat\": 4\n                },\n                {\n                    \"row\": 30,\n                    \"seat\": 50\n                }\n            ],\n            \"id\": \"61c94f51ef85114065486adb\"\n        }\n    ]\n}"
+							"body": "{\n    \"results\": 5,\n    \"movies\": [\n        {\n            \"_id\": \"61c94f51ef85114065486adb\",\n            \"title\": \"haha1\",\n            \"description\": \"ahaha\",\n            \"roomId\": 1,\n            \"date\": \"2021-12-27T05:29:33.890Z\",\n            \"startTime\": \"2021-12-27T05:29:33.890Z\",\n            \"endTime\": \"2021-12-27T05:29:33.890Z\",\n            \"__v\": 0,\n            \"image\": \"61c94f51ef85114065486adb.jpg\",\n            \"id\": \"61c94f51ef85114065486adb\",\n            \"room\": {\n                \"numRows\": 5,\n                \"numSeats\": 4\n            },\n            \"numReservedSeats\": 2\n        },\n        {\n            \"_id\": \"61c9ad516f705c9b8976bfbd\",\n            \"title\": \"testo\",\n            \"description\": \"ahaha\",\n            \"roomId\": 2,\n            \"image\": \"default.jpg\",\n            \"startTime\": \"2021-12-27T05:30:33.890Z\",\n            \"endTime\": \"2021-12-27T05:31:33.890Z\",\n            \"__v\": 0,\n            \"id\": \"61c9ad516f705c9b8976bfbd\",\n            \"room\": {\n                \"numRows\": 5,\n                \"numSeats\": 6\n            },\n            \"numReservedSeats\": 0\n        },\n        {\n            \"_id\": \"61c9ad5f6f705c9b8976bfc1\",\n            \"title\": \"haha1\",\n            \"description\": \"ahaha\",\n            \"roomId\": 2,\n            \"image\": \"default.jpg\",\n            \"startTime\": \"2021-12-27T05:32:20.890Z\",\n            \"endTime\": \"2021-12-27T05:35:20.890Z\",\n            \"__v\": 0,\n            \"id\": \"61c9ad5f6f705c9b8976bfc1\",\n            \"room\": {\n                \"numRows\": 5,\n                \"numSeats\": 6\n            },\n            \"numReservedSeats\": 0\n        },\n        {\n            \"_id\": \"61c9b35734ebf5a34d73f6fd\",\n            \"title\": \"testo\",\n            \"description\": \"ahaha\",\n            \"roomId\": 2,\n            \"image\": \"default.jpg\",\n            \"startTime\": \"2021-12-27T05:25:33.890Z\",\n            \"endTime\": \"2021-12-27T05:26:33.890Z\",\n            \"__v\": 0,\n            \"id\": \"61c9b35734ebf5a34d73f6fd\",\n            \"room\": {\n                \"numRows\": 5,\n                \"numSeats\": 6\n            },\n            \"numReservedSeats\": 0\n        },\n        {\n            \"_id\": \"61c9b38834ebf5a34d73f70f\",\n            \"title\": \"testo\",\n            \"description\": \"ahaha\",\n            \"roomId\": 2,\n            \"image\": \"61c9b38834ebf5a34d73f70f.jpg\",\n            \"startTime\": \"2021-12-27T05:26:35.890Z\",\n            \"endTime\": \"2021-12-27T05:26:40.890Z\",\n            \"__v\": 0,\n            \"id\": \"61c9b38834ebf5a34d73f70f\",\n            \"room\": {\n                \"numRows\": 5,\n                \"numSeats\": 6\n            },\n            \"numReservedSeats\": 0\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -488,15 +488,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "293"
+									"value": "356"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"125-tC4QoMrZmtbNrLuBmxa7Lcz/Js4\""
+									"value": "W/\"164-+hnxVSaFII2xSChCl+8hl5BOyoY\""
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 27 Dec 2021 05:44:21 GMT"
+									"value": "Mon, 27 Dec 2021 23:10:03 GMT"
 								},
 								{
 									"key": "Connection",
@@ -504,7 +504,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"movie\": {\n        \"_id\": \"61c94f51ef85114065486adb\",\n        \"title\": \"haha1\",\n        \"description\": \"ahaha\",\n        \"roomId\": 1,\n        \"date\": \"2021-12-27T05:29:33.890Z\",\n        \"startTime\": \"2021-12-27T05:29:33.890Z\",\n        \"endTime\": \"2021-12-27T05:29:33.890Z\",\n        \"__v\": 0,\n        \"seats\": [\n            {\n                \"row\": 5,\n                \"seat\": 4\n            },\n            {\n                \"row\": 30,\n                \"seat\": 50\n            }\n        ],\n        \"id\": \"61c94f51ef85114065486adb\"\n    }\n}"
+							"body": "{\n    \"_id\": \"61c94f51ef85114065486adb\",\n    \"title\": \"haha1\",\n    \"description\": \"ahaha\",\n    \"roomId\": 1,\n    \"date\": \"2021-12-27T05:29:33.890Z\",\n    \"startTime\": \"2021-12-27T05:29:33.890Z\",\n    \"endTime\": \"2021-12-27T05:29:33.890Z\",\n    \"__v\": 0,\n    \"image\": \"61c94f51ef85114065486adb.jpg\",\n    \"seats\": [\n        {\n            \"row\": 5,\n            \"seat\": 4\n        },\n        {\n            \"row\": 30,\n            \"seat\": 50\n        }\n    ],\n    \"id\": \"61c94f51ef85114065486adb\",\n    \"room\": {\n        \"numRows\": 5,\n        \"numSeats\": 4\n    }\n}"
 						}
 					]
 				}
