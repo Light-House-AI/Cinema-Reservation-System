@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const idvalidator = require('mongoose-id-validator');
 
 const ticketSchema = new mongoose.Schema({
   movieId: {
@@ -14,10 +15,12 @@ const ticketSchema = new mongoose.Schema({
   rowNumber: {
     type: Number,
     required: [true, 'Please provide a row number'],
+    min: [1, 'Row numbers starts at 1'],
   },
   seatNumber: {
     type: Number,
     required: [true, 'Please provide a seat number'],
+    min: [1, 'Seat numbers starts at 1'],
   },
 });
 

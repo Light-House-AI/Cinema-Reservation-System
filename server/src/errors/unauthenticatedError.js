@@ -3,10 +3,7 @@ const HttpError = require('./httpError');
 
 class UnauthenticatedError extends HttpError {
   constructor() {
-    super(
-      'You are unauthorized to access the requested resource. Please log in.',
-      StatusCodes.UNAUTHORIZED
-    );
+    super('Please login to access this route', StatusCodes.UNAUTHORIZED);
   }
 }
 

@@ -1,24 +1,66 @@
 const express = require('express');
-const restrictTo = require('../middlewares/restrictTo');
-const protect = require('../middlewares/protect');
+
 const catchAsync = require('../utils/catchAsync');
+const NotFoundError = require('../errors/NotFoundError');
+const BadRequestError = require('../errors/badRequestError');
+
+const User = require('../models/user');
+const Movie = require('../models/movie');
 
 const router = express.Router();
 
 async function signUp(req, res) {
-  res.send('Sign up');
+  if (req.body.role == 'manager') {
+    req.body.role = 'customer';
+    req.body.hasRequestedRoleUpgrade = true;
+  } else {
+    req.body.role = 'customer';
+    req.body.hasRequestedRoleUpgrade = false;
+  }
+
+  await User.create(req.body);
+
+  res.status(201).json({ status: 'success' });
 }
 
 async function login(req, res) {
-  res.send('Login');
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username }).select('+password');
+
+  if (!user || !(await user.isCorrectPassword(password, user.password)))
+    throw new BadRequestError('Invalid credentials');
+
+  const token = user.signToken(user._id);
+  user.password = undefined;
+
+  res.status(200).json({
+    accessToken: token,
+    user,
+  });
 }
 
 async function getAllMovies(req, res) {
-  res.send('Get all movies');
+  const movies = await Movie.find({}).populate('seats');
+
+  for (let movie of movies) {
+    movie.seats = movie.seats.map((seat) => {
+      return { row: seat.rowNumber, seat: seat.seatNumber };
+    });
+  }
+
+  res.status(200).json({ results: movies.length, movies });
 }
 
 async function getMovie(req, res) {
-  res.send('Get a movie');
+  const movie = await Movie.findById(req.params.id).populate('seats');
+  if (!movie) throw new NotFoundError('Movie not found');
+
+  movie.seats = movie.seats.map((seat) => {
+    return { row: seat.rowNumber, seat: seat.seatNumber };
+  });
+
+  res.status(200).json({ movie });
 }
 
 router.post('/signup', catchAsync(signUp));
