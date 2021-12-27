@@ -1,11 +1,8 @@
-/**
- * Create express app.
- */
-
 const express = require('express');
 const mongoSanitize = require('express-mongo-sanitize');
 const morgan = require('morgan');
 const xss = require('xss-clean');
+const path = require('path');
 
 const handleErrors = require('../middlewares/handleErrors');
 const NotFoundError = require('../errors/notFoundError');
@@ -32,6 +29,9 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
+
+// Serve static files
+app.use(express.static(path.join(__dirname, '../../public/')));
 
 // Apply routes
 app.use('/api/admin', adminRouter);

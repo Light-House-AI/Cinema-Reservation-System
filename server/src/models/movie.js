@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const idvalidator = require('mongoose-id-validator');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -20,9 +19,9 @@ const movieSchema = new mongoose.Schema(
       min: [1, 'Room id must be 1 or 2'],
       max: [2, 'Room id must be 1 or 2'],
     },
-    date: {
-      type: Date,
-      required: [true, 'Please provide a date'],
+    image: {
+      type: String,
+      default: 'default.jpg',
     },
     startTime: {
       type: Date,
@@ -38,8 +37,6 @@ const movieSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
-movieSchema.plugin(idvalidator);
 
 movieSchema.virtual('seats', {
   ref: 'Ticket',

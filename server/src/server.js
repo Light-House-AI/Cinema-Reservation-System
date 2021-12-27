@@ -1,7 +1,3 @@
-/**
- * Contains the server startup code.
- */
-
 const mongoose = require('mongoose');
 const config = require('./config');
 const logger = require('./logger');
@@ -41,7 +37,7 @@ const server = app.listen(config.PORT, () => {
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   logger.error('UNHANDLED REJECTION! Shutting down...');
-  logger.error(err.name, err.message);
+  logger.error(err);
   server.close(() => {
     process.exit(1);
   });
