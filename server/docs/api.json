@@ -230,7 +230,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"Whaaaat1?\"\r\n}",
+							"raw": "{\r\n    \"username\": \"manager\",\r\n    \"password\": \"Whaaaat1?\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1077,7 +1077,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"testo\",\r\n    \"description\": \"ahaha\",\r\n    \"roomId\": 2,\r\n    \"startTime\": \"2021-12-27T05:26:35.890Z\",\r\n    \"endTime\": \"2021-12-27T05:26:40.890Z\" \r\n\r\n}",
+							"raw": "{\r\n    \"title\": \"testo\",\r\n    \"description\": \"ahaha\",\r\n    \"roomId\": 2,\r\n    \"startTime\": \"2021-12-27T05:30:33.890Z\",\r\n    \"endTime\": \"2021-12-27T05:30:33.890Z\" \r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1422,6 +1422,109 @@
 							],
 							"cookie": [],
 							"body": "{}"
+						}
+					]
+				},
+				{
+					"name": "Get free rooms",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/manager/movies/free-rooms?startTime=2021-12-27T05:29:33.890Z&endTime=2021-12-27T05:30:38.890Z",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"manager",
+								"movies",
+								"free-rooms"
+							],
+							"query": [
+								{
+									"key": "startTime",
+									"value": "2021-12-27T05:29:33.890Z"
+								},
+								{
+									"key": "endTime",
+									"value": "2021-12-27T05:30:38.890Z"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get free rooms",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/manager/movies/free-rooms?startTime=2021-12-27T05:29:33.890Z&endTime=2021-12-27T05:30:38.890Z",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"manager",
+										"movies",
+										"free-rooms"
+									],
+									"query": [
+										{
+											"key": "startTime",
+											"value": "2021-12-27T05:29:33.890Z"
+										},
+										{
+											"key": "endTime",
+											"value": "2021-12-27T05:30:38.890Z"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "16"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10-gNNNoAQhTV3dh268FDTZ/TUJu98\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 23:30:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"freeRooms\": []\n}"
 						}
 					]
 				}

@@ -42,6 +42,22 @@ function getOverlappingMoviesCondition(startTime, endTime) {
   };
 }
 
+async function getFreeRooms(req, res) {
+  const { startTime, endTime } = req.query;
+
+  const movies = await Movie.find({
+    ...getOverlappingMoviesCondition(startTime, endTime),
+  });
+
+  const roomsWithMovies = new Set(movies.map((movie) => movie.roomId));
+  const freeRooms = [];
+
+  if (!roomsWithMovies.has(1)) freeRooms.push(1);
+  if (!roomsWithMovies.has(2)) freeRooms.push(2);
+
+  res.status(200).json({ freeRooms });
+}
+
 async function createMovie(req, res) {
   // check for overlapping times
   const { startTime, endTime } = req.body;
@@ -137,6 +153,7 @@ async function updateMovieImage(req, res) {
 }
 
 router.post('/movies', catchAsync(createMovie));
+router.get('/movies/free-rooms', catchAsync(getFreeRooms));
 router.patch('/movies/:id', catchAsync(updateMovie));
 router.delete('/movies/:id', catchAsync(deleteMovie));
 
