@@ -23,6 +23,25 @@ async function bookMovie(req, res) {
   const movie = await Movie.findById(movieId);
   if (!movie) throw new NotFoundError('Movie not found');
 
+  // prevent booking if the user already has a ticket in this time
+  const userTickets = await Ticket.find({
+    userId: req.user._id,
+  }).populate('movie');
+
+  const overlappingTicket = userTickets.find(
+    (ticket) =>
+      (ticket.movie[0].startTime <= movie.endTime &&
+        ticket.movie[0].endTime >= movie.startTime) ||
+      (ticket.movie[0].startTime <= movie.startTime &&
+        ticket.movie[0].endTime >= movie.endTime) ||
+      (ticket.movie[0].startTime >= movie.startTime &&
+        ticket.movie[0].endTime <= movie.endTime)
+  );
+
+  if (overlappingTicket)
+    throw new BadRequestError('You already have a ticket in this time');
+
+  // check for invalid row and seat
   const room = Rooms[movie.roomId];
   if (!room) throw new NotFoundError('Room not found');
 
