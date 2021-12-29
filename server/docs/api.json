@@ -530,7 +530,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rowNumber\": 4,\r\n    \"seatNumber\": 3\r\n}",
+							"raw": "{\r\n    \"seats\": [\r\n        {\r\n            \"rowNumber\": 4,\r\n            \"seatNumber\": 3\r\n        },\r\n        {\r\n            \"rowNumber\": 5,\r\n            \"seatNumber\": 3\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -538,7 +538,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/customer/booking/61c9ad5f6f705c9b8976bfc1",
+							"raw": "localhost:3000/api/customer/booking/61c9b38834ebf5a34d73f70f",
 							"host": [
 								"localhost"
 							],
@@ -547,11 +547,75 @@
 								"api",
 								"customer",
 								"booking",
-								"61c9ad5f6f705c9b8976bfc1"
+								"61c9b38834ebf5a34d73f70f"
 							]
 						}
 					},
 					"response": [
+						{
+							"name": "Book a movie",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"seats\": [\r\n        {\r\n            \"rowNumber\": 4,\r\n            \"seatNumber\": 3\r\n        },\r\n        {\r\n            \"rowNumber\": 5,\r\n            \"seatNumber\": 3\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/customer/booking/61c9b38834ebf5a34d73f70f",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"customer",
+										"booking",
+										"61c9b38834ebf5a34d73f70f"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "190"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"be-YzvP8QV6sCoHcbNMkG/GzHC3J3M\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 29 Dec 2021 13:24:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tickets\": [\n        {\n            \"movieId\": \"61c9b38834ebf5a34d73f70f\",\n            \"userId\": \"61ca4e001251111dd61a3a88\",\n            \"rowNumber\": 5,\n            \"seatNumber\": 3,\n            \"_id\": \"61cc619a2e089ee31dc08caf\",\n            \"__v\": 0,\n            \"id\": \"61cc619a2e089ee31dc08caf\"\n        }\n    ]\n}"
+						},
 						{
 							"name": "Book a movie",
 							"originalRequest": {
@@ -764,6 +828,91 @@
 							],
 							"cookie": [],
 							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get all tickets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/customer/booking",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"customer",
+								"booking"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all tickets",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/customer/booking",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"customer",
+										"booking"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "556"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22c-uY+y4xTfRVbuurQo46tBE9J7wpQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 29 Dec 2021 13:26:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"results\": 3,\n    \"tickets\": [\n        {\n            \"_id\": \"61cc61282e089ee31dc08c91\",\n            \"movieId\": \"61c9b35734ebf5a34d73f6fd\",\n            \"userId\": \"61ca4e001251111dd61a3a88\",\n            \"rowNumber\": 4,\n            \"seatNumber\": 3,\n            \"__v\": 0,\n            \"id\": \"61cc61282e089ee31dc08c91\"\n        },\n        {\n            \"_id\": \"61cc61472e089ee31dc08c9c\",\n            \"movieId\": \"61c9b35734ebf5a34d73f6fd\",\n            \"userId\": \"61ca4e001251111dd61a3a88\",\n            \"rowNumber\": 5,\n            \"seatNumber\": 3,\n            \"__v\": 0,\n            \"id\": \"61cc61472e089ee31dc08c9c\"\n        },\n        {\n            \"_id\": \"61cc619a2e089ee31dc08caf\",\n            \"movieId\": \"61c9b38834ebf5a34d73f70f\",\n            \"userId\": \"61ca4e001251111dd61a3a88\",\n            \"rowNumber\": 5,\n            \"seatNumber\": 3,\n            \"__v\": 0,\n            \"id\": \"61cc619a2e089ee31dc08caf\"\n        }\n    ]\n}"
 						}
 					]
 				}

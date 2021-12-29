@@ -16,9 +16,14 @@ const router = express.Router();
 router.use(protect);
 router.use(restrictTo('customer'));
 
+async function getAllTickets(req, res) {
+  const tickets = await Ticket.find({ userId: req.user._id });
+  res.status(200).json({ results: tickets.length, tickets });
+}
+
 async function bookMovie(req, res) {
   const { movieId } = req.params;
-  const { rowNumber, seatNumber } = req.body;
+  const { seats } = req.body;
 
   const movie = await Movie.findById(movieId);
   if (!movie) throw new NotFoundError('Movie not found');
@@ -27,16 +32,26 @@ async function bookMovie(req, res) {
   if (movie.startTime - Date.now() < 0)
     throw new BadRequestError('Movie has already started');
 
-  // check for invalid row and seat
+  // check for invalid seats
   const room = Rooms[movie.roomId];
   if (!room) throw new NotFoundError('Room not found');
 
-  if (rowNumber > room.numRows || seatNumber > room.numSeats)
-    throw new BadRequestError('Invalid seat');
+  const invalidSeats = seats.filter(
+    (seat) =>
+      seat.rowNumber > room.numRows ||
+      seat.rowNumber < 1 ||
+      seat.seatNumber > room.numSeats ||
+      seat.seatNumber < 1
+  );
 
-  // prevent booking if the user already has a ticket in this time
+  if (invalidSeats.length > 0)
+    throw new BadRequestError('Invalid seat(s) selected');
+
+  // prevent booking if the user already has another
+  // booking for the another movie
   const userTickets = await Ticket.find({
     userId: req.user._id,
+    movieId: { $ne: movieId },
   }).populate('movie');
 
   const overlappingTicket = userTickets.find(
@@ -52,15 +67,17 @@ async function bookMovie(req, res) {
   if (overlappingTicket)
     throw new BadRequestError('You already have a ticket in this time');
 
-  // create ticket
-  const ticket = await Ticket.create({
-    userId: req.user._id,
-    movieId,
-    rowNumber,
-    seatNumber,
-  });
+  // create movie tickets
+  const tickets = await Ticket.create(
+    seats.map((seat) => ({
+      userId: req.user._id,
+      movieId,
+      rowNumber: seat.rowNumber,
+      seatNumber: seat.seatNumber,
+    }))
+  );
 
-  res.status(201).json({ ticket });
+  res.status(201).json({ tickets });
 }
 
 async function cancelBooking(req, res) {
@@ -87,5 +104,6 @@ async function cancelBooking(req, res) {
 
 router.post('/booking/:movieId', catchAsync(bookMovie));
 router.delete('/booking/:movieId', catchAsync(cancelBooking));
+router.get('/booking', catchAsync(getAllTickets));
 
 module.exports = router;
