@@ -16,6 +16,10 @@ const managerRouter = require('./manager');
 
 const app = express();
 
+const cors = require('cors')
+
+app.use(cors())
+
 // Development logging
 if (config.NODE_ENV === 'development') {
   app.use(morgan('dev'));

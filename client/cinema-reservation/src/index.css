@@ -1,13 +1,101 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: roboto condensed, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: 2px;
+}
+
+#events,
+#sign-up,
+#event,
+#booking {
+  min-height: calc(100vh - 72px);
+}
+
+#events-title::after {
+  position: absolute;
+  right: auto;
+  bottom: -1px;
+  display: block;
+  width: 125px;
+  height: 4px;
+  content: '';
+  background-image: linear-gradient(to right, #fbbd61, #ec7532);
+}
+
+#events img,
+#event img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+#events-title h2 {
+  border-bottom: 1px solid #000;
+  text-transform: uppercase;
+}
+
+.container-fluid {
+  padding: 0.5rem 10rem;
+}
+
+.text-off-yellow {
+  color: #ec7532 !important;
+}
+
+.no-bullet {
+  list-style-type: none !important;
+}
+
+.anchor-default {
+  color: #fff;
+}
+
+.anchor-default-2 {
+  color: #000;
+}
+
+.anchor-default,
+.anchor-default-2 {
+  text-decoration: none;
+  transition: 0.3s all ease-in-out;
+}
+
+.anchor-default:hover,
+.active,
+.anchor-default-2:hover {
+  color: #fbbd61 !important;
+}
+
+.bg-black {
+  background-color: #000 !important;
+}
+
+.btn-ai {
+  color: #fff;
+  background-color: #fbbd61;
+  border-color: #fbbd61;
+}
+
+.btn-ai:hover {
+  color: #fbbd61;
+  background-color: #fff;
+}
+
+.btn:focus.btn-ai {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(251 189 97 / 25%);
+}
+
+.top-75 {
+  top: 75% !important;
 }
