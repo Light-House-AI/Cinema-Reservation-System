@@ -99,3 +99,7 @@ h6 {
 .top-75 {
   top: 75% !important;
 }
+
+.cursor-pointer {
+  cursor: pointer !important;
+}

@@ -40,9 +40,9 @@ function Navigationbar() {
                         }
                         {accessToken ?
                             <li className="nav-item ml-3">
-                                <a className="nav-link m-0 anchor-default" onClick={signOut} role="button">
+                                <p className="nav-link m-0 anchor-default cursor-pointer" onClick={signOut}>
                                     Sign Out
-                                </a>
+                                </p>
                             </li> : null
                         }
                     </ul>

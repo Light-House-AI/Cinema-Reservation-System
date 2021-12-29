@@ -27,7 +27,6 @@ function BookEvent(props) {
                         window.location.href = "/";
                     }, 3000);
                 }
-                // setConfirmSeatsClasses("btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle disabled");
             });
     }
 
@@ -38,13 +37,13 @@ function BookEvent(props) {
 
         if (e.currentTarget.className.includes("active")) {
             e.currentTarget.classList.remove("active");
-            setSelectedSeats(selectedSeats.filter(seat => seat.row !== e.currentTarget.id.split("-")[0] && seat.seat !== e.currentTarget.id.split("-")[1]));
+            setSelectedSeats(selectedSeats.filter(seat => seat.row !== e.currentTarget.id.split("-")[1] && seat.seat !== e.currentTarget.id.split("-")[0]));
         } else {
             e.currentTarget.classList.add("active");
             debugger;
             let seat = {
-                rowNumber: e.currentTarget.id.split("-")[0],
-                seatNumber: e.currentTarget.id.split("-")[1]
+                rowNumber: e.currentTarget.id.split("-")[1],
+                seatNumber: e.currentTarget.id.split("-")[0]
             }
             setSelectedSeats(selectedSeats => [
                 ...selectedSeats,
@@ -55,7 +54,7 @@ function BookEvent(props) {
 
     const returnSeats = (rowNumber, numOfSeats) => {
         var seats = []
-        for (var i = 1; i <= numOfSeats; i++) {
+        for (let i = 1; i <= numOfSeats; i++) {
             // eslint-disable-next-line no-loop-func
             if (movieDetails.seats.find(seat => seat.row === rowNumber && seat.seat === i)) {
                 seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat disabled"></div>)
@@ -68,17 +67,23 @@ function BookEvent(props) {
     };
 
     const returnRows = (numOfRows, numOfSeats) => {
-        var rows = [];
+        var leftRows = [];
+        var rightRows = [];
         if (movieDetails !== null && gotMovieDetails === true) {
-            for (var i = 1; i <= numOfRows; i++) {
-                rows.push(<div className={"cinema-row row-" + i} key={"cinema-row row-" + i}>
+            for (let i = 1; i <= numOfRows; i++) {
+                leftRows.push(<div className={"cinema-row row-" + i} key={"cinema-row row-" + i}>
+                    {returnSeats(i, numOfSeats / 2)}
+                </div>)
+            }
+            for (let i = numOfRows + 1; i <= numOfRows * 2; i++) {
+                rightRows.push(<div className={"cinema-row row-" + i} key={"cinema-row row-" + i}>
                     {returnSeats(i, numOfSeats / 2)}
                 </div>)
             }
             return (
                 <div className="theatre">
-                    <div className="cinema-seats left">{rows}</div>
-                    <div className="cinema-seats right">{rows}</div>
+                    <div className="cinema-seats left">{leftRows}</div>
+                    <div className="cinema-seats right">{rightRows}</div>
                 </div>
             );
         }
@@ -109,13 +114,19 @@ function BookEvent(props) {
 
     return (
         <div id="booking" className="container-fluid bg-light position-relative">
+            {movieDetails ?
+                <div id="events-title" className="position-relative mb-5 mt-3">
+                    <h2 className="pb-2">{movieDetails.title}</h2>
+                </div> : null
+            }
             <div className="">
                 <div className="d-flex justify-content-center align-items-center bg-primary rounded-top w-75 mx-auto mt-5">
                     <h1 className="m-0">SCREEN</h1>
                 </div>
                 {movieDetails ? returnRows(movieDetails.room.numRows, movieDetails.room.numSeats) : null}
             </div>
-            <button className="btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle" onClick={confirmSeat}>Confirm Seats</button>
+            <button className={accessToken ? "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle" : "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle disabled"} onClick={confirmSeat}>Confirm Seats</button>
+
             <button id='open-modal' type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#error-modal">
             </button>
             <div id="error-modal" className="modal" tabIndex="-1">
@@ -123,6 +134,23 @@ function BookEvent(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 id="modal-title" className="modal-title">ERROR</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="error-message" className="modal-body">
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id='open-modal-payment' type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#payement-modal">
+            </button>
+            <div id="payement-modal" className="modal" tabIndex="-1">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 id="modal-title" className="modal-title">PAYMENT</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div id="error-message" className="modal-body">

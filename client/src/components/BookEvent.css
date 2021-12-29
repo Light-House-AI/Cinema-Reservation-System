@@ -129,35 +129,35 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.right .row-2 {
+.right .row-7 {
     transform: skew(9deg);
 }
 
-.right .row-2 .seat {
+.right .row-7 .seat {
     transform: skew(-10deg);
 }
 
-.right .row-3 {
+.right .row-8 {
     transform: skew(10deg);
 }
 
-.right .row-3 .seat {
+.right .row-8 .seat {
     transform: skew(-12deg);
 }
 
-.right .row-4 {
+.right .row-9 {
     transform: skew(11deg);
 }
 
-.right .row-4 .seat {
+.right .row-9 .seat {
     transform: skew(-15deg);
 }
 
-.right .row-5 {
+.right .row-10 {
     transform: skew(12deg);
 }
 
-.right .row-5 .seat {
+.right .row-10 .seat {
     transform: skew(-16deg);
 }
 
@@ -169,10 +169,10 @@
     transform: skew(-18deg);
 }
 
-.right .row-7 {
+.right .row-5 {
     transform: skew(15deg);
 }
 
-.right .row-7 .seat {
+.right .row-5 .seat {
     transform: skew(-20deg);
 }
