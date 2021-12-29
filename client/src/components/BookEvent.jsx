@@ -16,6 +16,10 @@ function BookEvent(props) {
         setGotMovieDetails(true);
         axios.get("/movies/" + movieId)
             .then((response) => {
+                if (document.getElementById("card-expiry")) {
+                    document.getElementById("card-expiry").max = (new Date().getFullYear() + 10).toString() + "-12";
+                    document.getElementById("card-expiry").min = (new Date().getFullYear()).toString() + "-" + (new Date().getMonth()).toString();
+                }
                 setMovieDetails(response.data);
             })
             .catch((error) => {
@@ -40,7 +44,6 @@ function BookEvent(props) {
             setSelectedSeats(selectedSeats.filter(seat => seat.row !== e.currentTarget.id.split("-")[1] && seat.seat !== e.currentTarget.id.split("-")[0]));
         } else {
             e.currentTarget.classList.add("active");
-            debugger;
             let seat = {
                 rowNumber: e.currentTarget.id.split("-")[1],
                 seatNumber: e.currentTarget.id.split("-")[0]
@@ -56,7 +59,7 @@ function BookEvent(props) {
         var seats = []
         for (let i = 1; i <= numOfSeats; i++) {
             // eslint-disable-next-line no-loop-func
-            if (movieDetails.seats.find(seat => seat.row === rowNumber && seat.seat === i)) {
+            if (movieDetails.seats.find(seat => seat.row === i && seat.seat === rowNumber)) {
                 seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat disabled"></div>)
 
             } else {
@@ -89,28 +92,44 @@ function BookEvent(props) {
         }
     };
 
+    const openPayment = () => {
+        document.getElementById('open-modal-payment').click();
+    }
+
     const confirmSeat = () => {
         console.log(selectedSeats);
-        axios.post("/customer/booking/" + movieId, selectedSeats, {
+        axios.post("/customer/booking/" + movieId, { seats: selectedSeats }, {
             headers: {
                 "Content-type": "application/json",
                 "Authorization": "Bearer " + accessToken
             }
         }).then((response) => {
+            document.getElementById('close-payment').click();
             document.getElementById('modal-title').innerHTML = "SUCCESS";
-            document.getElementById('error-message').innerHTML = response.data.message + <br /> + <br /> + "Redirect to homepage in 1 second.";
+            document.getElementById('error-message').innerHTML = "Redirect to homepage in 1 second.";
             document.getElementById('open-modal').click();
             setTimeout(function () {
                 window.location.href = "/";
             }, 1000)
         }).catch((error) => {
             if (error.response.status === 400) {
+                document.getElementById('close-payment').click();
                 document.getElementById('modal-title').innerHTML = "ERROR";
                 document.getElementById('error-message').innerHTML = error.response.data.message;
                 document.getElementById('open-modal').click();
             }
         });
     };
+
+    const cardNumberLimit = (e) => {
+        if (e.currentTarget.value > 16)
+            e.currentTarget.value = e.currentTarget.value.slice(0, 16);
+    }
+
+    const cardCVVLimst = (e) => {
+        if (e.currentTarget.value > 3)
+            e.currentTarget.value = e.currentTarget.value.slice(0, 3);
+    }
 
     return (
         <div id="booking" className="container-fluid bg-light position-relative">
@@ -125,7 +144,7 @@ function BookEvent(props) {
                 </div>
                 {movieDetails ? returnRows(movieDetails.room.numRows, movieDetails.room.numSeats) : null}
             </div>
-            <button className={accessToken ? "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle" : "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle disabled"} onClick={confirmSeat}>Confirm Seats</button>
+            <button className={accessToken ? "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle" : "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle disabled"} onClick={openPayment}>Confirm Seats</button>
 
             <button id='open-modal' type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#error-modal">
             </button>
@@ -153,10 +172,33 @@ function BookEvent(props) {
                             <h5 id="modal-title" className="modal-title">PAYMENT</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div id="error-message" className="modal-body">
+                        <div className="modal-body">
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="mb-3">
+                                        <label htmlFor="card-number" className="form-label">Card Number</label>
+                                        <input type="number" className="form-control" id="card-number" placeholder="Card Number" onInput={cardNumberLimit} />
+                                    </div>
+                                    <div className="row mb-3">
+                                        <div className="col-6">
+                                            <label htmlFor="card-expiry" className="form-label">Expiry Date</label>
+                                            <input type="month" className="form-control" id="card-expiry" placeholder="Expiry Date" />
+                                        </div>
+                                        <div className="col-6">
+                                            <label htmlFor="card-cvv" className="form-label">CVC/CVV</label>
+                                            <input type="number" className="form-control" id="card-cvv" placeholder="CVC/CVV" onInput={cardCVVLimst} />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="card-name" className="form-label">Cardholder Name</label>
+                                        <input type="text" className="form-control" id="card-name" placeholder="Cardholder Name" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="close-payment" type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-ai" onClick={confirmSeat}>Pay Now</button>
                         </div>
                     </div>
                 </div>
