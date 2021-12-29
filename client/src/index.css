@@ -14,6 +14,10 @@ h6 {
   letter-spacing: 2px;
 }
 
+textarea {
+  min-height: 150px !important;
+}
+
 #events,
 #sign-up,
 #event,
@@ -91,13 +95,33 @@ h6 {
   background-color: #fff;
 }
 
-.btn:focus.btn-ai {
+.btn:focus.btn-ai,
+.btn:focus.btn-ai-outline {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgb(251 189 97 / 25%);
 }
 
+.btn-ai-outline {
+  color: #fbbd61;
+  background-color: #fff;
+  border-color: #fbbd61;
+}
+
+.btn-ai-outline:hover {
+  color: #fff;
+  background-color: #fbbd61;
+}
+
 .top-75 {
   top: 75% !important;
+}
+
+.start-25 {
+  left: 25% !important;
+}
+
+.start-65 {
+  left: 65% !important;
 }
 
 .cursor-pointer {

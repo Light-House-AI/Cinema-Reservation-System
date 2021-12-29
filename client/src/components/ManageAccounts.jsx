@@ -13,7 +13,7 @@ function ManageAccounts() {
 
     if (gotExistingAccounts === false) {
         setGotExistingAccounts(true);
-        axios.get("/admin/users/unapproved", {
+        axios.get("/admin/users", {
             headers: {
                 "Authorization": "Bearer " + accessToken
             }
@@ -26,7 +26,7 @@ function ManageAccounts() {
 
     const giveAccess = (e) => {
         let userId = e.currentTarget.id;
-        axios.patch("/admin/users/" + userId, {
+        axios.delete("/admin/users/" + userId, {
             headers: {
                 "Authorization": "Bearer " + accessToken
             }
@@ -70,12 +70,12 @@ function ManageAccounts() {
                     </div>
                     {existingAccounts.map((account) => {
                         return (
-                            <div className="row mt-1">
+                            <div className="row mt-1" key={account._id}>
                                 <div className="col-6 border-bottom pb-1 d-flex align-items-center">
-                                    <p className="m-0">{account.email} ({account.firstName + account.lastName})</p>
+                                    <p className="m-0">{account.email} ({account.firstName + " " + account.lastName})</p>
                                 </div>
                                 <div className="col-6 border-bottom pb-1">
-                                    <button className="btn btn-ai" id={account._id} onClick={giveAccess}>Give Access</button>
+                                    <button className="btn btn-ai" id={account._id} onClick={giveAccess}>Delete User</button>
                                 </div>
                             </div>
                         );

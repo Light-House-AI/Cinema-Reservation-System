@@ -6,8 +6,10 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import BookEventPage from './pages/BookEventPage';
 import EventPage from './pages/EventPage';
+import AddEventPage from './pages/AddEventPage';
 import ManageAccountsPage from './pages/ManageAccountsPage';
 import ApproveAccountsPage from './pages/ApproveAccountsPage';
+
 function App() {
   axios.defaults.baseURL = "http://localhost:3000/api";
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/movies/:movieId" element={<EventPage />} />
+        <Route path="/addevent" element={<AddEventPage />} />
         <Route path="/movies/:movieId/booknow" element={<BookEventPage />} />
         <Route path="/manageaccounts" element={<ManageAccountsPage />} />
         <Route path="/approveaccounts" element={<ApproveAccountsPage />} />

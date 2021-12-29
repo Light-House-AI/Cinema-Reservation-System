@@ -24,9 +24,9 @@ function ApproveAccounts() {
         });
     }
 
-    const removeAccess = (e) => {
+    const giveAccess = (e) => {
         let userId = e.currentTarget.id;
-        axios.delete("/admin/users/" + userId, {
+        axios.patch("/admin/users/" + userId, {}, {
             headers: {
                 "Authorization": "Bearer " + accessToken
             }
@@ -70,12 +70,12 @@ function ApproveAccounts() {
                     </div>
                     {unapprovedAccounts.map((account) => {
                         return (
-                            <div className="row mt-1">
+                            <div className="row mt-1" key={account._id}>
                                 <div className="col-6 border-bottom pb-1 d-flex align-items-center">
-                                    <p className="m-0">{account.email} ({account.firstName + account.lastName})</p>
+                                    <p className="m-0">{account.email} ({account.firstName + " " + account.lastName})</p>
                                 </div>
                                 <div className="col-6 border-bottom pb-1">
-                                    <button className="btn btn-ai" id={account._id} onClick={removeAccess}>Give Access</button>
+                                    <button className="btn btn-ai" id={account._id} onClick={giveAccess}>Give Access</button>
                                 </div>
                             </div>
                         );

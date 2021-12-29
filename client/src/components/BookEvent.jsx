@@ -5,15 +5,20 @@ import './BookEvent.css'
 
 function BookEvent(props) {
     const [accessToken] = useState(localStorage.getItem("accessToken"));
-
+    const [cancelTicketCount, setCancelTicketCount] = useState(0);
     const [movieId] = useState(props.movieId);
     const [gotMovieDetails, setGotMovieDetails] = useState(false);
     const [movieDetails, setMovieDetails] = useState(null);
 
+    const [gotTickets, setGotTickets] = useState(false);
+    const [tickets, setTickets] = useState(null);
+
     const [selectedSeats, setSelectedSeats] = useState([]);
 
-    if (gotMovieDetails === false) {
+    if (gotMovieDetails === false && gotTickets === false) {
         setGotMovieDetails(true);
+        setGotTickets(true);
+
         axios.get("/movies/" + movieId)
             .then((response) => {
                 if (document.getElementById("card-expiry")) {
@@ -32,6 +37,30 @@ function BookEvent(props) {
                     }, 3000);
                 }
             });
+
+        if (accessToken) {
+            axios.get("/customer/booking", {
+                headers: {
+                    "Authorization": "Bearer " + accessToken
+                }
+            }).then((response) => {
+                setTickets(response.data.tickets);
+                for (let i = 0; i < tickets.length; i++) {
+                    if (tickets[i].movieId === movieId) {
+                        let ticket = {
+                            rowNumber: tickets[i].rowNumber,
+                            seatNumber: tickets[i].seatNumber
+                        }
+                        setSelectedSeats(selectedSeats => [
+                            ...selectedSeats,
+                            ticket
+                        ]);
+                    }
+                }
+            }).catch((error) => {
+                console.log(error.response);
+            })
+        }
     }
 
     const seatClicked = (e) => {
@@ -59,9 +88,11 @@ function BookEvent(props) {
         var seats = []
         for (let i = 1; i <= numOfSeats; i++) {
             // eslint-disable-next-line no-loop-func
-            if (movieDetails.seats.find(seat => seat.row === i && seat.seat === rowNumber)) {
+            if (tickets != null && tickets.find(ticket => ticket.rowNumber === i && ticket.seatNumber === rowNumber && ticket.movieId === movieId)) {
+                seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat active"></div>)
+            }
+            else if (movieDetails.seats.find(seat => seat.row === i && seat.seat === rowNumber)) {
                 seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat disabled"></div>)
-
             } else {
                 seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat" onClick={seatClicked}></div>)
             }
@@ -72,7 +103,7 @@ function BookEvent(props) {
     const returnRows = (numOfRows, numOfSeats) => {
         var leftRows = [];
         var rightRows = [];
-        if (movieDetails !== null && gotMovieDetails === true) {
+        if (movieDetails !== null && gotMovieDetails === true && ((tickets !== null && gotTickets === true) || !accessToken)) {
             for (let i = 1; i <= numOfRows; i++) {
                 leftRows.push(<div className={"cinema-row row-" + i} key={"cinema-row row-" + i}>
                     {returnSeats(i, numOfSeats / 2)}
@@ -118,6 +149,10 @@ function BookEvent(props) {
                 document.getElementById('error-message').innerHTML = error.response.data.message;
                 document.getElementById('open-modal').click();
             }
+            if (error.response.status === 401) {
+                localStorage.clear();
+                window.location.href = "/login";
+            }
         });
     };
 
@@ -131,6 +166,40 @@ function BookEvent(props) {
             e.currentTarget.value = e.currentTarget.value.slice(0, 3);
     }
 
+    const cancelReservation = () => {
+        if (tickets !== null) {
+            for (let i = 0; i < tickets.length; i++) {
+                let ticket = {
+                    rowNumber: tickets[i].rowNumber,
+                    seatNumber: tickets[i].seatNumber
+                }
+                axios.delete("/customer/booking/" + movieId, {
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": "Bearer " + accessToken
+                    },
+                    data: ticket
+                }).then((response) => {
+                    setCancelTicketCount(cancelTicketCount + 1);
+                    if (cancelTicketCount === tickets.length) {
+                        document.getElementById('modal-title').innerHTML = "SUCCESS";
+                        document.getElementById('error-message').innerHTML = "Redirect to homepage in 3 seconds.";
+                        document.getElementById('open-modal').click();
+                        setTimeout(function () {
+                            window.location.href = "/";
+                        }, 3000);
+                    }
+                }).catch((error) => {
+                    console.log(error.response);
+                    if (error.response.status === 401) {
+                        localStorage.clear();
+                        window.location.href = "/login";
+                    }
+                })
+            }
+        }
+    }
+
     return (
         <div id="booking" className="container-fluid bg-light position-relative">
             {movieDetails ?
@@ -142,9 +211,11 @@ function BookEvent(props) {
                 <div className="d-flex justify-content-center align-items-center bg-primary rounded-top w-75 mx-auto mt-5">
                     <h1 className="m-0">SCREEN</h1>
                 </div>
+                {movieDetails && tickets != null ? returnRows(movieDetails.room.numRows, movieDetails.room.numSeats) : null}
                 {movieDetails ? returnRows(movieDetails.room.numRows, movieDetails.room.numSeats) : null}
             </div>
-            <button className={accessToken ? "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle" : "btn btn-ai btn-lg position-absolute top-75 start-50 translate-middle disabled"} onClick={openPayment}>Confirm Seats</button>
+            <button className={accessToken ? "btn btn-ai btn-lg position-absolute top-75 start-65" : "btn btn-ai btn-lg position-absolute top-75 start-65 disabled"} onClick={openPayment}>Confirm Seats</button>
+            <button className={accessToken && tickets ? "btn btn-ai-outline btn-lg position-absolute top-75 start-25" : "btn btn-ai-outline btn-lg position-absolute top-75 start-25 disabled"} onClick={cancelReservation}>Cancel Reservation</button>
 
             <button id='open-modal' type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#error-modal">
             </button>
