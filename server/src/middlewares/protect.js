@@ -3,6 +3,8 @@ const config = require('../config');
 const catchAsync = require('../utils/catchAsync');
 
 const UnauthenticatedError = require('../errors/UnauthenticatedError');
+const NotFoundError = require('../errors/NotFoundError');
+
 const User = require('../models/user');
 
 const protect = catchAsync(async (req, res, next) => {

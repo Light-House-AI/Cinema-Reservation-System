@@ -42,7 +42,9 @@ async function login(req, res) {
 }
 
 async function getAllMovies(req, res) {
-  let movies = await Movie.find({}).populate('seats');
+  let movies = await Movie.find({
+    startTime: { $gte: new Date() },
+  }).populate('seats');
 
   movies = movies.map((movie) => {
     movie = movie.toJSON();
