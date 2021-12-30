@@ -20,7 +20,7 @@ async function getAllUnapprovedUsers(req, res) {
 }
 
 async function getAllUsers(req, res) {
-  const users = await User.find();
+  const users = await User.find({ role: { $ne: 'admin' } });
   res.status(200).json({ results: users.length, users });
 }
 
