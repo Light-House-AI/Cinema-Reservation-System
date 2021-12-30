@@ -38,7 +38,7 @@ async function bookMovie(req, res) {
 
   const invalidSeats = seats.filter(
     (seat) =>
-      seat.rowNumber > (room.numSeats / 2) ||
+      seat.rowNumber > room.numSeats / 2 ||
       seat.rowNumber < 1 ||
       seat.seatNumber > 10 ||
       seat.seatNumber < 1
@@ -67,17 +67,23 @@ async function bookMovie(req, res) {
   if (overlappingTicket)
     throw new BadRequestError('You already have a ticket in this time');
 
-  // create movie tickets
-  const tickets = await Ticket.create(
-    seats.map((seat) => ({
-      userId: req.user._id,
-      movieId,
-      rowNumber: seat.rowNumber,
-      seatNumber: seat.seatNumber,
-    }))
-  );
+  // create tickets
+  const session = await Ticket.startSession();
 
-  res.status(201).json({ tickets });
+  await session.withTransaction(async () => {
+    return Ticket.create(
+      seats.map((seat) => ({
+        userId: req.user._id,
+        movieId,
+        rowNumber: seat.rowNumber,
+        seatNumber: seat.seatNumber,
+      })),
+      { session }
+    );
+  });
+
+  session.endSession();
+  res.status(201).json({});
 }
 
 async function cancelBooking(req, res) {
