@@ -30,7 +30,7 @@ async function login(req, res) {
   const user = await User.findOne({ username }).select('+password');
 
   if (!user || !(await user.isCorrectPassword(password, user.password)))
-    throw new BadRequestError('Invalid credentials');
+    throw new BadRequestError('Invalid username or password');
 
   const token = user.signToken(user._id);
   user.password = undefined;
