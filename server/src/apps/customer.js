@@ -38,9 +38,9 @@ async function bookMovie(req, res) {
 
   const invalidSeats = seats.filter(
     (seat) =>
-      seat.rowNumber > (room.numSeats / 2) ||
+      seat.rowNumber > room.numRows ||
       seat.rowNumber < 1 ||
-      seat.seatNumber > 10 ||
+      seat.seatNumber > room.numSeats ||
       seat.seatNumber < 1
   );
 

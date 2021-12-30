@@ -1,11 +1,11 @@
 Rooms = {
   1: {
-    numRows: 5,
-    numSeats: 4,
+    numRows: 2, //column
+    numSeats: 10,  //row
   },
   2: {
-    numRows: 5,
-    numSeats: 6,
+    numRows: 3,
+    numSeats: 10,
   },
 };
 

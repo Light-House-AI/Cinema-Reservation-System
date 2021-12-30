@@ -61,20 +61,26 @@ function ManageAccounts() {
             <div className="row mt-3">
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-6 border-bottom">
+                        <div className="col-4 border-bottom">
                             <h4>Email Address</h4>
                         </div>
-                        <div className="col-6 border-bottom">
+                        <div className="col-4 border-bottom">
+                            <h4>Role</h4>
+                        </div>
+                        <div className="col-4 border-bottom">
                             <h4>Action</h4>
                         </div>
                     </div>
                     {existingAccounts.map((account) => {
                         return (
                             <div className="row mt-1" key={account._id}>
-                                <div className="col-6 border-bottom pb-1 d-flex align-items-center">
+                                <div className="col-4 border-bottom pb-1 d-flex align-items-center">
                                     <p className="m-0">{account.email} ({account.firstName + " " + account.lastName})</p>
                                 </div>
-                                <div className="col-6 border-bottom pb-1">
+                                <div className="col-4 border-bottom pb-1 d-flex align-items-center">
+                                    <p className="m-0">{account.role.toUpperCase()}</p>
+                                </div>
+                                <div className="col-4 border-bottom pb-1">
                                     <button className="btn btn-ai" id={account._id} onClick={giveAccess}>Delete User</button>
                                 </div>
                             </div>

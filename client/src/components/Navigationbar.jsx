@@ -15,8 +15,11 @@ function Navigationbar() {
         <div className='container-fluid bg-black text-white py-3 text-center'>
             <div className="row">
                 <div className="col-md-6">
+                    <a href="/">
+                        <img className="float-start" src="/Light-House-AI-light.png" height="90px" alt="logo" />
+                    </a>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 d-flex align-items-center justify-content-end">
                     <ul className="nav justify-content-end">
                         <li className="nav-item">
                             <a className="nav-link anchor-default" href="/">Events</a>

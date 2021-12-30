@@ -70,12 +70,12 @@ function BookEvent(props) {
 
         if (e.currentTarget.className.includes("active")) {
             e.currentTarget.classList.remove("active");
-            setSelectedSeats(selectedSeats.filter(seat => seat.row !== e.currentTarget.id.split("-")[1] && seat.seat !== e.currentTarget.id.split("-")[0]));
+            setSelectedSeats(selectedSeats.filter(seat => seat.row !== e.currentTarget.id.split("-")[0] && seat.seat !== e.currentTarget.id.split("-")[1]));
         } else {
             e.currentTarget.classList.add("active");
             let seat = {
-                rowNumber: e.currentTarget.id.split("-")[1],
-                seatNumber: e.currentTarget.id.split("-")[0]
+                rowNumber: e.currentTarget.id.split("-")[0],
+                seatNumber: e.currentTarget.id.split("-")[1]
             }
             setSelectedSeats(selectedSeats => [
                 ...selectedSeats,
@@ -89,12 +89,12 @@ function BookEvent(props) {
         for (let i = 1; i <= numOfSeats; i++) {
             // eslint-disable-next-line no-loop-func
             if (tickets != null && tickets.find(ticket => ticket.rowNumber === i && ticket.seatNumber === rowNumber && ticket.movieId === movieId)) {
-                seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat active"></div>)
+                seats.push(<div key={i + "-" + rowNumber} id={i + "-" + rowNumber} className="seat active"></div>)
             }
             else if (movieDetails.seats.find(seat => seat.row === i && seat.seat === rowNumber)) {
-                seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat disabled"></div>)
+                seats.push(<div key={i + "-" + rowNumber} id={i + "-" + rowNumber} className="seat disabled"></div>)
             } else {
-                seats.push(<div key={rowNumber + "-" + i} id={rowNumber + "-" + i} className="seat" onClick={seatClicked}></div>)
+                seats.push(<div key={i + "-" + rowNumber} id={i + "-" + rowNumber} className="seat" onClick={seatClicked}></div>)
             }
         }
         return seats;
@@ -104,14 +104,14 @@ function BookEvent(props) {
         var leftRows = [];
         var rightRows = [];
         if (movieDetails !== null && gotMovieDetails === true && ((tickets !== null && gotTickets === true) || !accessToken)) {
-            for (let i = 1; i <= numOfRows; i++) {
+            for (let i = 1; i <= numOfSeats / 2; i++) {
                 leftRows.push(<div className={"cinema-row row-" + i} key={"cinema-row row-" + i}>
-                    {returnSeats(i, numOfSeats / 2)}
+                    {returnSeats(i, numOfRows)}
                 </div>)
             }
-            for (let i = numOfRows + 1; i <= numOfRows * 2; i++) {
+            for (let i = (numOfSeats / 2) + 1; i <= numOfSeats; i++) {
                 rightRows.push(<div className={"cinema-row row-" + i} key={"cinema-row row-" + i}>
-                    {returnSeats(i, numOfSeats / 2)}
+                    {returnSeats(i, numOfRows)}
                 </div>)
             }
             return (
@@ -179,9 +179,8 @@ function BookEvent(props) {
                         "Authorization": "Bearer " + accessToken
                     },
                     data: ticket
-                }).then((response) => {
-                    setCancelTicketCount(cancelTicketCount + 1);
-                    if (cancelTicketCount === tickets.length) {
+                }).then((_response) => {
+                    if (i === tickets.length - 1) {
                         document.getElementById('modal-title').innerHTML = "SUCCESS";
                         document.getElementById('error-message').innerHTML = "Redirect to homepage in 3 seconds.";
                         document.getElementById('open-modal').click();
@@ -191,6 +190,11 @@ function BookEvent(props) {
                     }
                 }).catch((error) => {
                     console.log(error.response);
+                    if (error.response.status === 400) {
+                        document.getElementById('modal-title').innerHTML = "ERROR";
+                        document.getElementById('error-message').innerHTML = "Cannot cancel seats before 3 hours of starting movie.";
+                        document.getElementById('open-modal').click();
+                    }
                     if (error.response.status === 401) {
                         localStorage.clear();
                         window.location.href = "/login";
