@@ -27,6 +27,10 @@ async function getAllUsers(req, res) {
 async function deleteUser(req, res) {
   const user = await User.findByIdAndDelete(req.params.id);
   if (!user) throw new NotFoundError('User not found');
+
+  // delete all tickets associated with the user
+  await Ticket.deleteMany({ userId: user._id });
+
   res.status(204).json({});
 }
 
