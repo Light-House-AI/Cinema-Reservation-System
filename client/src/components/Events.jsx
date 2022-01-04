@@ -30,13 +30,13 @@ function Events() {
                 {movies.map(movie => {
                     return (
                         <div className="col-md-4 text-center" key={movie._id}>
-                            <a className="anchor-default-2 m-0" href={"/" + movie.id}>
+                            <a className="anchor-default-2 m-0" href={"/movies" + movie.id}>
                                 <p className="h5 mb-3">{movie.title}</p>
                             </a>
                             <a href={"/movies/" + movie.id}>
                                 <img className="img-fluid" src={"http://localhost:3000/" + movie.image} alt="event" />
                             </a>
-                            <a className="btn btn-ai mt-3" href={"/" + movie.id}>
+                            <a className="btn btn-ai mt-3" href={"/movies" + movie.id}>
                                 More Details
                             </a>
                         </div>
