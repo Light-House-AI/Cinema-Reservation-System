@@ -1,7 +1,7 @@
 Rooms = {
   1: {
-    numRows: 2, //column
-    numSeats: 10,  //row
+    numRows: 2,
+    numSeats: 10,
   },
   2: {
     numRows: 3,

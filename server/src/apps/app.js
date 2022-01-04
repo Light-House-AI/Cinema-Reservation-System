@@ -3,6 +3,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const morgan = require('morgan');
 const xss = require('xss-clean');
 const path = require('path');
+const cors = require('cors');
 
 const handleErrors = require('../middlewares/handleErrors');
 const NotFoundError = require('../errors/notFoundError');
@@ -16,9 +17,7 @@ const managerRouter = require('./manager');
 
 const app = express();
 
-const cors = require('cors')
-
-app.use(cors())
+app.use(cors());
 
 // Development logging
 if (config.NODE_ENV === 'development') {
