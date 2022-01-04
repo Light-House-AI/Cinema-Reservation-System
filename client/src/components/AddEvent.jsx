@@ -13,8 +13,8 @@ function AddEvent() {
         window.location.href = "/";
 
     const isRoomsAvailable = () => {
-        let startDate = document.getElementById("movie-start").value;
-        let endDate = document.getElementById("movie-end").value;
+        let startDate = moment(new Date(document.getElementById("movie-start").value)).format();
+        let endDate = moment(new Date(document.getElementById("movie-end").value)).format();
         let url = "/manager/movies/free-rooms?startTime=" + startDate + "&endTime=" + endDate;
         if (startDate != null && endDate != null && startDate !== "" && endDate !== "") {
             axios.get(url, {
@@ -113,8 +113,8 @@ function AddEvent() {
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="movie-rooms" className="form-label">Available Rooms:</label>
-                        <select className="form-select" id="movie-rooms">
+                        <label htmlFor="movie-rooms" className="form-label" >Available Rooms:</label>
+                        <select className="form-select" id="movie-rooms" onClick={isRoomsAvailable}>
                             {availableRooms && availableRooms.map(roomId => {
                                 return (
                                     <option key={roomId} value={roomId}>Room {roomId}</option>
