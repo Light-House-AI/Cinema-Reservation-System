@@ -11,7 +11,7 @@ import ManageAccountsPage from './pages/ManageAccountsPage';
 import ApproveAccountsPage from './pages/ApproveAccountsPage';
 
 function App() {
-  axios.defaults.baseURL = "http://localhost:3000/api";
+  axios.defaults.baseURL = "http://41.35.167.137:3000/api";
   return (
     <BrowserRouter>
       <Routes>

@@ -45,28 +45,37 @@ function BookEvent(props) {
                 }
             }).then((response) => {
                 setTickets(response.data.tickets);
-                for (let i = 0; i < tickets.length; i++) {
-                    if (tickets[i].movieId === movieId) {
-                        let ticket = {
-                            rowNumber: tickets[i].rowNumber,
-                            seatNumber: tickets[i].seatNumber
+                if (response.data.tickets.length) {
+                    setCancelTicketCount(response.data.tickets.length)
+                    for (let i = 0; i < tickets.length; i++) {
+                        if (tickets[i].movieId === movieId) {
+                            let ticket = {
+                                rowNumber: tickets[i].rowNumber,
+                                seatNumber: tickets[i].seatNumber
+                            }
+                            setSelectedSeats(selectedSeats => [
+                                ...selectedSeats,
+                                ticket
+                            ]);
                         }
-                        setSelectedSeats(selectedSeats => [
-                            ...selectedSeats,
-                            ticket
-                        ]);
                     }
                 }
             }).catch((error) => {
-                console.log(error.response);
+                console.log(error);
             })
         }
     }
 
     const seatClicked = (e) => {
         // e.currentTarget.id
-        if (accessToken === null)
-            window.location.href = "/login";
+        if (accessToken === null) {
+            document.getElementById('close-payment').click();
+            document.getElementById('redirecting').classList.remove("d-none");
+            document.getElementById('modal-title').innerHTML = "Warning";
+            document.getElementById('error-message').innerHTML = "Do you want to redirect to login page?";
+            document.getElementById('open-modal').click();
+            return;
+        }
 
         if (e.currentTarget.className.includes("active")) {
             e.currentTarget.classList.remove("active");
@@ -136,6 +145,7 @@ function BookEvent(props) {
             }
         }).then((response) => {
             document.getElementById('close-payment').click();
+            document.getElementById('redirecting').classList.add("d-none");
             document.getElementById('modal-title').innerHTML = "SUCCESS";
             document.getElementById('error-message').innerHTML = "Redirect to homepage in 1 second.";
             document.getElementById('open-modal').click();
@@ -145,6 +155,7 @@ function BookEvent(props) {
         }).catch((error) => {
             if (error.response.status === 400) {
                 document.getElementById('close-payment').click();
+                document.getElementById('redirecting').classList.add("d-none");
                 document.getElementById('modal-title').innerHTML = "ERROR";
                 document.getElementById('error-message').innerHTML = error.response.data.message;
                 document.getElementById('open-modal').click();
@@ -219,7 +230,7 @@ function BookEvent(props) {
                 {movieDetails ? returnRows(movieDetails.room.numRows, movieDetails.room.numSeats) : null}
             </div>
             <button className={accessToken ? "btn btn-ai btn-lg position-absolute top-75 start-65" : "btn btn-ai btn-lg position-absolute top-75 start-65 disabled"} onClick={openPayment}>Confirm Seats</button>
-            <button className={accessToken && tickets ? "btn btn-ai-outline btn-lg position-absolute top-75 start-25" : "btn btn-ai-outline btn-lg position-absolute top-75 start-25 disabled"} onClick={cancelReservation}>Cancel Reservation</button>
+            <button className={cancelTicketCount !== 0 ? "btn btn-ai-outline btn-lg position-absolute top-75 start-25" : "btn btn-ai-outline btn-lg position-absolute top-75 start-25 disabled"} onClick={cancelReservation}>Cancel Reservation</button>
 
             <button id='open-modal' type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#error-modal">
             </button>
@@ -233,6 +244,7 @@ function BookEvent(props) {
                         <div id="error-message" className="modal-body">
                         </div>
                         <div className="modal-footer">
+                            <a id="redirecting" href="/login" className="btn btn-ai d-none">Redirect to login?</a>
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>

@@ -78,8 +78,8 @@ function Event(props) {
         let movie = {
             title: document.getElementById("movie-title").value,
             description: document.getElementById("movie-description").value,
-            startTime: document.getElementById("movie-start").value,
-            endTime: document.getElementById("movie-end").value,
+            startTime: moment(new Date(document.getElementById("movie-start").value)).format(),
+            endTime: moment(new Date(document.getElementById("movie-end").value)).format(),
             roomId: document.getElementById("movie-rooms").selectedOptions[0].value
         };
         axios.patch("/manager/movies/" + movieId, movie, {
@@ -166,13 +166,13 @@ function Event(props) {
                                     <div className="col-6">
                                         <div className="mb-3">
                                             <label htmlFor="movie-start" className="form-label">Start Date</label>
-                                            <input type="datetime-local" className="form-control" id="movie-start" placeholder="Start Date" defaultValue={new Date(movie.startTime).toISOString().slice(0, 16)} />
+                                            <input type="datetime-local" className="form-control" id="movie-start" placeholder="Start Date" defaultValue={moment(new Date(movie.startTime)).format("YYYY-MM-DDTHH:mm")} />
                                         </div>
                                     </div>
                                     <div className="col-6">
                                         <div className="mb-3">
                                             <label htmlFor="movie-end" className="form-label">End Date</label>
-                                            <input type="datetime-local" className="form-control" id="movie-end" placeholder="Start Date" defaultValue={new Date(movie.endTime).toISOString().slice(0, 16)} />
+                                            <input type="datetime-local" className="form-control" id="movie-end" placeholder="Start Date" defaultValue={moment(new Date(movie.endTime)).format("YYYY-MM-DDTHH:mm")} />
                                         </div>
                                     </div>
                                 </div> : null
@@ -207,7 +207,7 @@ function Event(props) {
                             <div className="row">
                                 <div className="col-md-6">
                                     <p className="m-0 px-2 py-3">
-                                        {moment(new Date("2022-01-02T14:45:00.000Z").toISOString().slice(0, 16)).format("hh:mm A DD MMM YYYY")}
+                                        {moment(new Date(movie.startTime)).format("hh:mm A DD MMM YYYY")}
                                     </p>
                                 </div>
                                 {!isManager ?
@@ -225,9 +225,11 @@ function Event(props) {
                                     </div> : null
                                 }
                             </div>
-                            <div className="float-end mt-3">
-                                <button className="btn btn-ai btn-lg" onClick={updateEvent}>Update Event</button>
-                            </div>
+                            {isManager ?
+                                <div className="float-end mt-3">
+                                    <button className="btn btn-ai btn-lg" onClick={updateEvent}>Update Event</button>
+                                </div> : null
+                            }
                         </div>
                     </div >
                 </div > : null

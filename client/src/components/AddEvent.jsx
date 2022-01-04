@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import moment from 'moment';
 
 function AddEvent() {
     const [accessToken] = useState(localStorage.getItem("accessToken"));
@@ -43,11 +44,10 @@ function AddEvent() {
         let movie = {
             title: document.getElementById("movie-title").value,
             description: document.getElementById("movie-description").value,
-            startTime: document.getElementById("movie-start").value,
-            endTime: document.getElementById("movie-end").value,
+            startTime: moment(new Date(document.getElementById("movie-start").value)).format(),
+            endTime: moment(new Date(document.getElementById("movie-end").value)).format(),
             roomId: document.getElementById("movie-rooms").selectedIndex + 1
         };
-
         if (fileSelected != null) {
             axios.post("/manager/movies", movie, {
                 headers: {
