@@ -166,13 +166,13 @@ function Event(props) {
                                     <div className="col-6">
                                         <div className="mb-3">
                                             <label htmlFor="movie-start" className="form-label">Start Date</label>
-                                            <input type="datetime-local" className="form-control" id="movie-start" placeholder="Start Date" defaultValue={moment(new Date(movie.startTime)).format("YYYY-MM-DDTHH:mm")} />
+                                            <input type="datetime-local" className="form-control" id="movie-start" placeholder="Start Date" defaultValue={moment(new Date(movie.startTime)).format("YYYY-MM-DDTHH:mm")} onClick={isRoomsAvailable} />
                                         </div>
                                     </div>
                                     <div className="col-6">
                                         <div className="mb-3">
                                             <label htmlFor="movie-end" className="form-label">End Date</label>
-                                            <input type="datetime-local" className="form-control" id="movie-end" placeholder="Start Date" defaultValue={moment(new Date(movie.endTime)).format("YYYY-MM-DDTHH:mm")} />
+                                            <input type="datetime-local" className="form-control" id="movie-end" placeholder="Start Date" defaultValue={moment(new Date(movie.endTime)).format("YYYY-MM-DDTHH:mm")} onClick={isRoomsAvailable} />
                                         </div>
                                     </div>
                                 </div> : null
@@ -183,7 +183,7 @@ function Event(props) {
                             {isManager ?
                                 <div className="mb-3">
                                     <label htmlFor="movie-rooms" className="form-label">Available Rooms:</label>
-                                    <select className="form-select" id="movie-rooms" defaultValue={movie.room.numRows === 2 ? 1 : 2}>
+                                    <select className="form-select" id="movie-rooms" defaultValue={movie.room.numRows === 2 ? 1 : 2} onClick={isRoomsAvailable}>
                                         <option value={movie.room.numRows === 2 ? 1 : 2}>Room {movie.room.numRows === 2 ? 1 : 2}</option>
                                         {availableRooms && availableRooms.map(roomId => {
                                             return (
