@@ -52,7 +52,7 @@ function ApproveAccounts() {
                     <a className="nav-link active" aria-current="page" href="/approveaccounts">Requests</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link anchor-default-2" aria-current="page" href="/manageaccounts">Existing Managers</a>
+                    <a className="nav-link anchor-default-2" aria-current="page" href="/manageaccounts">Existing Users</a>
                 </li>
             </ul>
             <button className="btn btn-ai anchor-default-2 m-0 position-absolute end-0 top-0" onClick={signOut}>
