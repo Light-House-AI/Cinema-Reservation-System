@@ -68,21 +68,15 @@ async function bookMovie(req, res) {
     throw new BadRequestError('You already have a ticket in this time');
 
   // create tickets
-  const session = await Ticket.startSession();
+  await Ticket.create(
+    seats.map((seat) => ({
+      userId: req.user._id,
+      movieId,
+      rowNumber: seat.rowNumber,
+      seatNumber: seat.seatNumber,
+    }))
+  );
 
-  await session.withTransaction(async () => {
-    return Ticket.create(
-      seats.map((seat) => ({
-        userId: req.user._id,
-        movieId,
-        rowNumber: seat.rowNumber,
-        seatNumber: seat.seatNumber,
-      })),
-      { session }
-    );
-  });
-
-  session.endSession();
   res.status(201).json({});
 }
 

@@ -62,6 +62,14 @@ async function createMovie(req, res) {
   // check for overlapping times
   const { startTime, endTime } = req.body;
 
+  if (new Date(startTime) > new Date(endTime)) {
+    throw new BadRequestError('Start time must be before end time');
+  }
+
+  if (new Date(startTime) < new Date()) {
+    throw new BadRequestError('Start time must be after current time');
+  }
+
   const overlappingMovies = await Movie.countDocuments({
     ...getOverlappingMoviesCondition(startTime, endTime),
     roomId: req.body.roomId,
@@ -82,6 +90,14 @@ async function updateMovie(req, res) {
   if (!movie) throw new NotFoundError('Movie not found');
 
   const { startTime, endTime } = req.body;
+
+  if (new Date(startTime) > new Date(endTime)) {
+    throw new BadRequestError('Start time must be before end time');
+  }
+
+  if (new Date(startTime) < new Date()) {
+    throw new BadRequestError('Start time must be after current time');
+  }
 
   // check for overlapping times
   const overlappingMovies = await Movie.countDocuments({
