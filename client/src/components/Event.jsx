@@ -27,10 +27,10 @@ function Event(props) {
     }
 
     const isRoomsAvailable = () => {
-        if (isManager && availableRooms === null) {
+        if (isManager) {
             if (document.getElementById("movie-start") && document.getElementById("movie-end")) {
-                let startDate = moment(new Date(document.getElementById("movie-start").value)).format();
-                let endDate = moment(new Date(document.getElementById("movie-end").value)).format();
+                let startDate = new Date(document.getElementById("movie-start").value).toISOString();
+                let endDate = new Date(document.getElementById("movie-end").value).toISOString();
                 let url = "/manager/movies/free-rooms?startTime=" + startDate + "&endTime=" + endDate;
                 if (startDate != null && endDate != null && startDate !== "" && endDate !== "") {
                     axios.get(url, {

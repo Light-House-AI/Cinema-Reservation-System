@@ -13,8 +13,8 @@ function AddEvent() {
         window.location.href = "/";
 
     const isRoomsAvailable = () => {
-        let startDate = moment(new Date(document.getElementById("movie-start").value)).format();
-        let endDate = moment(new Date(document.getElementById("movie-end").value)).format();
+        let startDate = new Date(document.getElementById("movie-start").value).toISOString();
+        let endDate = new Date(document.getElementById("movie-end").value).toISOString();
         let url = "/manager/movies/free-rooms?startTime=" + startDate + "&endTime=" + endDate;
         if (startDate != null && endDate != null && startDate !== "" && endDate !== "") {
             axios.get(url, {
@@ -46,7 +46,7 @@ function AddEvent() {
             description: document.getElementById("movie-description").value,
             startTime: moment(new Date(document.getElementById("movie-start").value)).format(),
             endTime: moment(new Date(document.getElementById("movie-end").value)).format(),
-            roomId: document.getElementById("movie-rooms").selectedIndex + 1
+            roomId: parseInt(document.getElementById("movie-rooms").value)
         };
         if (fileSelected != null) {
             axios.post("/manager/movies", movie, {
@@ -114,7 +114,7 @@ function AddEvent() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="movie-rooms" className="form-label" >Available Rooms:</label>
-                        <select className="form-select" id="movie-rooms" onClick={isRoomsAvailable}>
+                        <select className="form-select" id="movie-rooms" onKeyPress={isRoomsAvailable}>
                             {availableRooms && availableRooms.map(roomId => {
                                 return (
                                     <option key={roomId} value={roomId}>Room {roomId}</option>
